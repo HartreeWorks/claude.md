@@ -98,3 +98,31 @@ Any project or skill can send alerts via `POST https://hartreeworks.org/api/aler
 ## Dual-machine setup
 
 Peter uses two Macs (MacBook Pro `mbp` for daily work, Mac Mini `mini` for AI agents/heavy workloads) connected via Tailscale, with folders synced via Syncthing. Full details: `~/.claude/references/dual-machine-setup.md`
+
+## OpenClaw (scheduling and reminders)
+
+OpenClaw is installed on the **Mac Mini only**. Use it to schedule one-shot reminders or recurring tasks that run as AI agent turns.
+
+**To schedule a one-shot reminder:**
+```bash
+ssh mini "export PATH=/opt/homebrew/bin:\$PATH; openclaw cron add \
+  --name 'descriptive-name' \
+  --at '2026-02-16T14:00:00' \
+  --message 'The reminder text with context for the agent receiving it' \
+  --announce \
+  --delete-after-run"
+```
+
+**Key flags:**
+- `--at <ISO datetime>` — one-shot time (always **UTC**—subtract 1h for CET, 2h for CEST)
+- `--cron <expr>` / `--every <duration>` — recurring schedules
+- `--tz <IANA>` — timezone for cron expressions (does **not** apply to `--at`)
+- `--announce` — deliver a summary to the chat
+- `--delete-after-run` — clean up one-shot jobs after execution
+- `--message <text>` — the prompt/context the agent receives
+
+**Other useful commands (run via `ssh mini`):**
+- `openclaw cron list` — view scheduled jobs
+- `openclaw cron runs` — view past execution history
+- `openclaw cron rm <id>` — remove a job
+- `openclaw cron edit <id> --at <new-time>` — reschedule
