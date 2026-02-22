@@ -44,7 +44,8 @@ Minimise flattery. Treat me as someone who wants frank, insightful feedback—no
 ## Coding conventions
 
 - Use Yarn (e.g. `yarn add`, `yarn install`, `yarn remove`) instead of NPM for package management, unless the project contains a `package-lock.json` file.
-- When writing code that calls AI APIs, read `~/.claude/references/ai-models.md` for current model IDs. Never guess or "correct" model IDs—use exactly what's in the reference file.
+- When initialising a git repo (`git init`), always create a `.gitignore` with at minimum: `.DS_Store`, `.env`, `.env.local`, `node_modules/`, `.next/`, `dist/`, `build/`. Add further entries as appropriate for the project's stack.
+- When writing code that calls AI APIs, read `/Users/ph/.agents/references/ai-models.md` for current model IDs. Never guess or "correct" model IDs—use exactly what's in the reference file.
 - When creating a new Next.js project, assign a stable port: run `npx detect-port 3050`, add the result to `.env.local` as `PORT=<detected-port>`, and leave the dev script as default (`next dev`—it reads PORT from .env.local automatically).
 
 ## Google Workspace
